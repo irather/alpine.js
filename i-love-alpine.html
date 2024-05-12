@@ -6,7 +6,7 @@
     <h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
 
     <div x-data="{ count: 0 }">
-      <button x-on:click="count++">Increment</button>
+      <button @click="count++">Increment</button>
 
       <span x-text="count"></span>
     </div>
@@ -52,6 +52,12 @@
         }));
       });
     </script>
+
+    <div x-data="{ open: false }">
+      <button @click="open = ! open">Toggle 6</button>
+
+      <div x-show="open" @click.outside="open = false">Contents...</div>
+    </div>
 
     <button x-data="{ open: true }" @click="open = false" x-show="open">Hide Me</button>
   </body>
