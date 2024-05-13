@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body>
+    <div x-data="{name: 'ibby', nickname: 'IR', age: 22}">
+      <div>Name: <b x-text="name"></b></div>
+      <div>Age: <b x-text="age"></b></div>
+    </div>
+
+    <!--Not accessible due to it being outside x-data parent element-->
+    <div>
+      <div>Nickname: <b x-text="nickname"></b></div>
+    </div>
+
+    <div x-data="{...init(), ...initV2()}">
+      <div>Name:<span x-text="name"></span></div>
+      <button @click="setName('irather')">Set Name</button>
+      <div>Nickname: <b x-text="nickname"></b></div>
+      <button @click="setNickname('IR')">Set Name</button>
+    </div>
+
+    <script>
+      function init() {
+        return {
+          name: "",
+          setName: function (name) {
+            this.name = name;
+          },
+        };
+      }
+
+      function initV2() {
+        return {
+          nickname: "",
+
+          setNickname: function (nickname) {
+            this.nickname = nickname;
+          },
+        };
+      }
+    </script>
+
+    <script>
+      function setOpen() {
+        this.open = false;
+      }
+    </script>
+
+    <div x-data="{open: true}" x-init="setOpen()">
+      <div>Open?: <span x-text="open"></span></div>
+    </div>
+
+    <script>
+      function show() {
+        return true;
+      }
+    </script>
+
+    <div>
+      <div x-show="show()">Shown</div>
+      <div x-show="false">Not Shown</div>
+    </div>
+
+    <div x-data="{val: false}">
+      <input x-bind:disabled="val" type="text" />
+    </div>
+
+    <div x-data="{html: '<i>I am ibu</i>'}">
+      <span x-html="html"></span>
+    </div>
+
+    <div x-data="{val: false}">
+      <template x-if="val">
+        <div>Renders on x-if directive.</div>
+      </template>
+    </div>
+
+    <div x-data="{fruits: ['orange', 'mango', 'lime']}">
+      <h3>List of Fruits</h3>
+      <template x-for="fruit in fruits">
+        <div x-text="fruit"></div>
+      </template>
+    </div>
+
+    <div x-data="{ clickHandler: function(e) { console.log('Clicked'); } }">
+      <button @click="clickHandler($event)">Click</button>
+    </div>
+
+    <div x-data="{val: 'test'}">
+      <input type="text" x-model="val" />
+    </div>
+  </body>
+</html>
